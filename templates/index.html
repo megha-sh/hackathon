@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image OCR Processor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .container {
+        text-align: center;
+      }
+      .upload-box {
+        margin: 20px 0;
+        padding: 20px;
+        border: 2px dashed #ccc;
+      }
+      .result-box {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        word-wrap: break-word;
+        text-align: left;
+      }
+      .error {
+        color: red;
+      }
+      table {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      th, td {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image OCR Processor</h1>
+
+      <div class="upload-box">
+        <form action="/" method="post" enctype="multipart/form-data">
+          <input type="file" name="documents" accept=".pdf,image/*" multiple required />
+          <br /><br />
+          <input type="submit" value="Process Files" />
+        </form>
+      </div>
+
+      {% if result %}
+      <div class="result-box">
+        <h3>OCR Result:</h3>
+        <div>{{ result|safe }}</div>
+        {% if download_link %}
+          <br>
+          <a href="{{ download_link }}" download>
+            <button>Download JSON</button>
+          </a>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if error %}
+      <div class="result-box error">
+        <h3>Error:</h3>
+        <p>{{ error }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
